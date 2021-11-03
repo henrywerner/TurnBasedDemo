@@ -28,17 +28,24 @@ public class GameStateTurnRed : IState, ITeamTurn
         }
     }
 
-    public void AddScore()
+    public bool AddScore()
     {
         /*
          Called at the end of each turn (or potentially round?).
          Adds team score based on the number of flags held.
          */
-        
+
         if (_gameState._redScore >= _gameState.SCORE_LIMIT)
+        {
             _gameState.ChangeState(_gameState.WinRed);
-        else if (_gameState._blueScore >= _gameState.SCORE_LIMIT)
+            return true;
+        }
+        if (_gameState._blueScore >= _gameState.SCORE_LIMIT)
+        {
             _gameState.ChangeState(_gameState.WinBlue);
+            return true;
+        }
+        return false;
     }
     
     public void Enter()
@@ -83,7 +90,8 @@ public class GameStateTurnRed : IState, ITeamTurn
         currentSoldier = characterTurnsRemaining - 1;
 
         // add score
-        AddScore();
+        if (AddScore())
+            return;
         
         if (characterTurnsRemaining == 0)
             _gameState.ChangeState(_gameState.TurnBlue); // no turns remain, switch to other team
