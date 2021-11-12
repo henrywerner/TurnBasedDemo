@@ -12,9 +12,8 @@ GameObject:
   - component: {fileID: 1635779857249558204}
   - component: {fileID: 1635779857249558203}
   - component: {fileID: 1635779857249558202}
-  - component: {fileID: 1635779857249558206}
   m_Layer: 0
-  m_Name: the actual object
+  m_Name: sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -97,35 +96,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1635779857249558206
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1635779857249558201}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aaa38a41b40c43d0a69c53b5e202b8c0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _poses:
-  - {fileID: 2800000, guid: c9225e349eef7eb4ca10294aaa61236a, type: 3}
-  - {fileID: 2800000, guid: d19f101b2c58530448a0c98d3b1e0121, type: 3}
-  - {fileID: 2800000, guid: 70fd1714fc748b047b730cff39189eb0, type: 3}
-  - {fileID: 2800000, guid: 6b1b628f3bc532e4d8f8835e9570f168, type: 3}
-  - {fileID: 2800000, guid: a5010846d22f8054eb866d8e7416b799, type: 3}
-  - {fileID: 2800000, guid: f29bdcd3e9ff53548991a520a4edad44, type: 3}
-  - {fileID: 2800000, guid: 8b20fd03319121249ae2b6e380688661, type: 3}
-  - {fileID: 2800000, guid: c7b187243fa2c444bbbf0c4a8d97174c, type: 3}
-  parent: {fileID: 1635779857300523247}
-  Team: 0
-  AmmoCount: 0
-  MaxAmmo: 0
-  CurrentHP: 0
-  MaxHP: 0
-  RespawnTimer: 0
-  forwardDirection: 0
 --- !u!1 &1635779857300523247
 GameObject:
   m_ObjectHideFlags: 0
@@ -135,6 +105,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1635779857300523232}
+  - component: {fileID: 7097282401318333812}
   m_Layer: 0
   m_Name: Soldier
   m_TagString: Untagged
@@ -157,3 +128,32 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7097282401318333812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1635779857300523247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aaa38a41b40c43d0a69c53b5e202b8c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _poses:
+  - {fileID: 2800000, guid: c9225e349eef7eb4ca10294aaa61236a, type: 3}
+  - {fileID: 2800000, guid: d19f101b2c58530448a0c98d3b1e0121, type: 3}
+  - {fileID: 2800000, guid: 70fd1714fc748b047b730cff39189eb0, type: 3}
+  - {fileID: 2800000, guid: 6b1b628f3bc532e4d8f8835e9570f168, type: 3}
+  - {fileID: 2800000, guid: a5010846d22f8054eb866d8e7416b799, type: 3}
+  - {fileID: 2800000, guid: f29bdcd3e9ff53548991a520a4edad44, type: 3}
+  - {fileID: 2800000, guid: 8b20fd03319121249ae2b6e380688661, type: 3}
+  - {fileID: 2800000, guid: c7b187243fa2c444bbbf0c4a8d97174c, type: 3}
+  child: {fileID: 1635779857249558201}
+  Team: 0
+  AmmoCount: 0
+  MaxAmmo: 0
+  CurrentHP: 0
+  MaxHP: 0
+  RespawnTimer: 0
+  Movement: 0

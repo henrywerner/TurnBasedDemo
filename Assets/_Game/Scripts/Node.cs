@@ -8,6 +8,7 @@ namespace _Game.Scripts
         public Vector4 Covering; // North, East, South, West
         public Vector4 Covered;  // North, East, South, West
         public GameObject Occupied = null;
+        public GameObject Tile;
         private float _posX, _posY;
         
         public Node(string str)

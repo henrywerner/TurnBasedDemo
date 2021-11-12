@@ -13,7 +13,9 @@ public class GameStateFSM : StateMachine
     public int SCORE_LIMIT = 15;
     public int TurnNumber { get; private set; }
 
-    [SerializeField] private GameObject _blueTeamObj, _redTeamObj;
+    // We need GameObjects to attach CharacterTurnFSM to
+    [SerializeField] private GameObject _blueTeamObj, _redTeamObj; 
+    
     [SerializeField] private Soldier[] blueTeam, redTeam;
     
     private void Awake()

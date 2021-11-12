@@ -7,7 +7,8 @@ namespace _Game.Scripts
     {
         [SerializeField] private Texture[] _poses;
         private Camera _cam;
-        [SerializeField] private GameObject parent;
+        //[SerializeField] private GameObject parent;
+        [SerializeField] private GameObject child;
         private Renderer _rend;
         
         public bool Team;
@@ -15,7 +16,9 @@ namespace _Game.Scripts
         public int CurrentHP, MaxHP;
         public bool IsDead => CurrentHP <= MaxHP;
         public short RespawnTimer = 0;
-        public int forwardDirection;
+
+        public int Movement = 5;
+        //public int forwardDirection;
 
         public Soldier(bool team, int maxHp, int maxAmmo)
         {
@@ -24,13 +27,12 @@ namespace _Game.Scripts
             CurrentHP = maxHp;
             MaxAmmo = maxAmmo;
             AmmoCount = maxAmmo;
-            forwardDirection = 3;
         }
 
         public int GetCover(int direction) // 0 = N; 1 = E, 2 = S, 3 = W
         {
             var position = gameObject.transform.position;
-            Node n = MapBuilder.current.GetNodeAt((int)position.x, (int)position.y);
+            Node n = MapHandler.current.GetNodeAt((int)position.x, (int)position.y);
 
             return (int)n.Covered[direction];
         }
@@ -38,16 +40,16 @@ namespace _Game.Scripts
         private void Start()
         {
             _cam = Camera.main;
-            _rend = gameObject.GetComponent<Renderer>();
+            _rend = child.GetComponent<Renderer>();
         }
 
         public void Update()
         {
-            transform.rotation = Quaternion.LookRotation(_cam.transform.position) * Quaternion.Euler(0, 180, 0);
-            transform.localEulerAngles = new Vector3(0, transform.localEulerAngles.y, 0);
+            child.transform.rotation = Quaternion.LookRotation(_cam.transform.position) * Quaternion.Euler(0, 180, 0);
+            child.transform.localEulerAngles = new Vector3(0, child.transform.localEulerAngles.y, 0);
 
             //var rotDelta = parent.transform.rotation * Quaternion.Inverse(_cam.transform.rotation);
-            var rotDelta = parent.transform.rotation.eulerAngles.y - _cam.transform.rotation.eulerAngles.y;
+            var rotDelta = transform.rotation.eulerAngles.y - _cam.transform.rotation.eulerAngles.y;
             rotDelta = Math.Abs(rotDelta);
             rotDelta = 360 - rotDelta;
             //Debug.Log("Delta: " + rotDelta);
