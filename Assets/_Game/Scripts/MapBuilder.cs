@@ -67,5 +67,10 @@ namespace _Game.Scripts
                 }
             }
         }
+
+        public Node GetNodeAt(int x, int y)
+        {
+            return currentMap[x][y];
+        }
     }
 }

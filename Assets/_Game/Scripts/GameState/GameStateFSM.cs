@@ -14,13 +14,14 @@ public class GameStateFSM : StateMachine
     public int TurnNumber { get; private set; }
 
     [SerializeField] private GameObject _blueTeamObj, _redTeamObj;
+    [SerializeField] private Soldier[] blueTeam, redTeam;
     
     private void Awake()
     {
         MatchStart = new GameStateMatchStart(this);
 
-        Soldier[] blueTeam = new Soldier[6];
-        Soldier[] redTeam = new Soldier[6];
+        //Soldier[] blueTeam = new Soldier[6];
+        //Soldier[] redTeam = new Soldier[6];
 
         TurnBlue = new GameStateTurnBlue(blueTeam, _blueTeamObj, this);
         TurnRed = new GameStateTurnRed(redTeam, _redTeamObj, this);
