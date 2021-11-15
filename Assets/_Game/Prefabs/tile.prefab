@@ -14,11 +14,11 @@ GameObject:
   - component: {fileID: 1414120584633324978}
   m_Layer: 0
   m_Name: tile
-  m_TagString: Untagged
+  m_TagString: Tile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2209687325052481189
 Transform:
   m_ObjectHideFlags: 0

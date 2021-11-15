@@ -113,7 +113,7 @@ namespace _Game.Scripts
                     if (g.visited[i, j] > 0)
                     {
                         Node n = GetNodeAt(i, j);
-                        debugPrint += "[" + i + "," + j + "] ";
+                        debugPrint += "([" + i + "," + j + "]" + g.visited[i,j] + ") ";
                         n.Tile.SetActive(true);
                         available.Add(new Vector2Int(i,j));
                     }
@@ -157,12 +157,31 @@ namespace _Game.Scripts
             // add all adjacent vertices to list
             List<Vector2Int> adjacent = new List<Vector2Int>();
             Vector2Int coords = new Vector2Int();
+            
+            /*
             if (currentNode.x - 1 >= 0 && n.Covered[West] == 0)
             {
                 coords = new Vector2Int(currentNode.x - 1, currentNode.y);
                 if (visited[coords.x, coords.y] != 0 && visited[coords.x, coords.y] < distance || visited[coords.x, coords.y] == 0)
                     if (GetNodeAt(coords.x, coords.y).isWalkable)
                         adjacent.Add(coords);
+            }
+            */
+            
+            if (currentNode.x - 1 >= 0 && n.Covered[West] == 0)
+            {
+                coords = new Vector2Int(currentNode.x - 1, currentNode.y);
+                
+                // if we haven't visited this before
+                if (visited[coords.x, coords.y] == 0)
+                {
+                    if (GetNodeAt(coords.x, coords.y).isWalkable)
+                        adjacent.Add(coords);
+                }
+                else if (visited[coords.x, coords.y] < distance)
+                {
+                    adjacent.Add(coords);
+                }
             }
 
             if (currentNode.y - 1 >= 0 && n.Covered[South] == 0)
@@ -188,7 +207,7 @@ namespace _Game.Scripts
                     if (GetNodeAt(coords.x, coords.y).isWalkable)
                         adjacent.Add(coords);
             }
-            
+
             foreach (var adj in adjacent)
             {
                 Gaming temp = FindNodesInDistance(adj, visited, path, distance - 1);
