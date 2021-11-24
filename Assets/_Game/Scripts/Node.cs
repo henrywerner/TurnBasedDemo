@@ -7,7 +7,7 @@ namespace _Game.Scripts
         public bool isWalkable;
         public Vector4 Covering; // North, East, South, West
         public Vector4 Covered;  // North, East, South, West
-        public GameObject Occupied = null;
+        public Soldier Occupied = null;
         public GameObject Tile;
         private float _posX, _posY;
         

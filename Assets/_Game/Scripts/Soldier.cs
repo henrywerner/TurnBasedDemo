@@ -10,19 +10,33 @@ namespace _Game.Scripts
         //[SerializeField] private GameObject parent;
         [SerializeField] private GameObject child;
         private Renderer _rend;
+        [SerializeField] internal EventFeed evtFeed;
         
-        public bool Team;
+        public team Team;
         public int AmmoCount, MaxAmmo;
         public int CurrentHP, MaxHP;
-        public bool IsDead => CurrentHP <= MaxHP;
+        public bool IsDead => CurrentHP <= 0;
         public short RespawnTimer = 0;
 
         public int Movement = 5;
         //public int forwardDirection;
-
-        public Soldier(bool team, int maxHp, int maxAmmo)
+        
+        private Vector2 _movementTarget;
+        public Vector2 movementTarget
         {
-            Team = team;
+            get => _movementTarget;
+            set => _movementTarget = value;
+        }
+
+        public enum team
+        {
+            Blue = 0,
+            Red = 1
+        }
+
+        public Soldier(team playerTeam, int maxHp, int maxAmmo)
+        {
+            Team = playerTeam;
             MaxHP = maxHp;
             CurrentHP = maxHp;
             MaxAmmo = maxAmmo;
@@ -35,6 +49,13 @@ namespace _Game.Scripts
             Node n = MapHandler.current.GetNodeAt((int)position.x, (int)position.y);
 
             return (int)n.Covered[direction];
+        }
+
+        public void Damage()
+        {
+            CurrentHP--;
+            
+            // Check if soldier is dead
         }
 
         private void Start()

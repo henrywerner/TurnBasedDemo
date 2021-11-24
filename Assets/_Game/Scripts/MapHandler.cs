@@ -29,6 +29,61 @@ namespace _Game.Scripts
             BuildMap(currentMap);
         }
 
+        public void setNodeOccupied(int x, int y, Soldier soldier)
+        {
+            currentMap[x][y].Occupied = soldier;
+        }
+
+        public List<Vector2> getOccupiedPos()
+        {
+            List<Vector2> occupiedPos = new List<Vector2>();
+
+            for (int i = 0; i < currentMap.Length; i++)
+            {
+                for (int j = 0; j < currentMap[i].Length; j++)
+                {
+                    if (currentMap[i][j].Occupied != null)
+                    {
+                        occupiedPos.Add(new Vector2(i, j));
+                    }
+                }
+            }
+
+            return occupiedPos;
+        }
+
+        public List<Vector2> getBlueTeamPos()
+        {
+            List<Vector2> allOccupiedPos = getOccupiedPos();
+            List<Vector2> blueTeamPos = new List<Vector2>();
+
+            foreach (var tile in allOccupiedPos)
+            {
+                if (currentMap[(int)tile.x][(int)tile.y].Occupied.Team == Soldier.team.Blue)
+                {
+                    blueTeamPos.Add(tile);
+                }
+            }
+
+            return blueTeamPos;
+        }
+        
+        public List<Vector2> getRedTeamPos()
+        {
+            List<Vector2> allOccupiedPos = getOccupiedPos();
+            List<Vector2> redTeamPos = new List<Vector2>();
+
+            foreach (var tile in allOccupiedPos)
+            {
+                if (currentMap[(int)tile.x][(int)tile.y].Occupied.Team == Soldier.team.Red)
+                {
+                    redTeamPos.Add(tile);
+                }
+            }
+
+            return redTeamPos;
+        }
+
         public void BuildMap(Node[][] map)
         {
             for (int i = 0; i < map.Length; i++)

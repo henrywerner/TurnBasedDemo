@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using _Game.Scripts;
 using _Game.Scripts.CharacterTurn;
+using UnityEngine;
 
 public class CharacterTurnFSM : StateMachine
  {
@@ -8,6 +10,9 @@ public class CharacterTurnFSM : StateMachine
      public short ActionsRemaining;
      private const short CHARACTER_ACTIONS = 2;
      internal ITeamTurn _teamTurn;
+     internal Vector2 _movementTarget;
+
+     internal List<RaycastHit> _queuedShots;
 
      public CharacterTurnActionSelection ActionSelection { get; private set; }
      public CharacterTurnFireAction FireAction { get; private set; }

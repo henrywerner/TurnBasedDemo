@@ -19,7 +19,7 @@ namespace _Game.Scripts.CharacterTurn
         public void Enter()
         {
             Debug.Log("State Entered: Character Turn: Movement Select");
-            Debug.Log("<color=#fdbb43>PRESS [1] Confirm Movement; [2] Cancel</color>");
+            Debug.Log("<color=#fdbb43>PRESS [Mouse1] Confirm Movement; [Mouse2] Cancel</color>");
 
             Vector3 pos = _characterTurnFsm._soldier.transform.position;
             Debug.Log("Character Pos: " + (int)pos.x + ", " + (int)pos.z);
@@ -28,21 +28,17 @@ namespace _Game.Scripts.CharacterTurn
 
         public void Tick()
         {
-            if (Input.GetKeyDown(KeyCode.Alpha1))
-                _characterTurnFsm.ChangeState(_characterTurnFsm.MovementAction);
-            else if (Input.GetKeyDown(KeyCode.Alpha2))
-                _characterTurnFsm.ChangeState(_characterTurnFsm.ActionSelection);
-
             RaycastHit h;
             Ray r = _camera.ScreenPointToRay(Input.mousePosition);
             bool isTile = false;
+            int x = 0, z = 0;
             if (Physics.Raycast(r, out h) && h.transform != prevHit.transform)
             {
                 isTile = h.transform.gameObject.CompareTag("Tile");
                 if (isTile)
                 {
-                    int x = (int)h.transform.position.x;
-                    int z = (int)h.transform.position.z;
+                    x = (int)h.transform.position.x;
+                    z = (int)h.transform.position.z;
                     Debug.Log("hit " + h.transform.gameObject.name + " [" + x + "," + z + "]");
                     SelectionIndicator.current.OnMoveIndicator.Invoke(x,z);
                     SelectionIndicator.current.Highlight(true);
@@ -54,11 +50,16 @@ namespace _Game.Scripts.CharacterTurn
                     
             }
             prevHit = h;
-
-            if (Input.GetMouseButtonDown(0) && isTile)
+            
+            if (Input.GetMouseButtonDown(0) && prevHit.transform.gameObject.CompareTag("Tile"))
             {
-                
+                _characterTurnFsm._movementTarget = new Vector2(prevHit.transform.position.x, prevHit.transform.position.z);
+                _characterTurnFsm.ChangeState(_characterTurnFsm.MovementAction);
             } 
+            else if (Input.GetMouseButtonDown(1))
+            {
+                _characterTurnFsm.ChangeState(_characterTurnFsm.ActionSelection);
+            }
         }
 
         public void FixedTick()

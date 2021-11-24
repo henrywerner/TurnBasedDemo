@@ -13,6 +13,11 @@ namespace _Game.Scripts.CharacterTurn
         
         public void Enter()
         {
+            Marker.current.OnMoveMarker.Invoke(
+                (int)_characterTurnFsm._soldier.gameObject.transform.position.x, 
+                (int)_characterTurnFsm._soldier.gameObject.transform.position.z);
+            Marker.current.SetVisable(true);
+            
             Debug.Log("State Entered: Character Turn: Action Selection");
             Debug.Log("<color=#fdbb43>PRESS [1] Fire; [2] Move; [3] Reload</color>");
         }
