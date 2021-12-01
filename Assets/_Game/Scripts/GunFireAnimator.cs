@@ -32,6 +32,15 @@ public class GunFireAnimator : MonoBehaviour
         int shotsHit = 0;
         foreach (var shot in shots)
         {
+            if (shooter.AmmoCount == 0)
+            {
+                // play gun empty sound
+                continue;
+            }
+            
+            // remove 1 ammo from shooter
+            shooter.DepleteAmmo();
+            
             // play sound effect
             _assultRifleSource.Play();
             

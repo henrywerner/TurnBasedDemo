@@ -17,6 +17,9 @@ namespace _Game.Scripts.CharacterTurn
             Debug.Log("State Entered: Character Turn: Limbo");
             _characterTurnFsm.ActionsRemaining--;
             
+            
+            HUD.qt.SetActionsRemaining(_characterTurnFsm._soldier, _characterTurnFsm.ActionsRemaining);
+            
             if (_characterTurnFsm.ActionsRemaining > 0)
             {
                 nextState = _characterTurnFsm.ActionSelection;

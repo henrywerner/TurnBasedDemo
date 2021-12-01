@@ -31,7 +31,6 @@ namespace _Game.Scripts.CharacterTurn
             //     // wait?
             // }
             
-            // move to next state
         }
 
         public void Tick()

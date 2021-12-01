@@ -58,6 +58,9 @@ public class CharacterTurnFSM : StateMachine
          //     return;
          // }
          
+         HUD.qt.SetSoldierTurn(_soldier);
+         HUD.qt.SetActionsRemaining(_soldier, CHARACTER_ACTIONS);
+         
          ChangeState(ActionSelection);
      }
  }

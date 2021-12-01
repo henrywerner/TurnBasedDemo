@@ -27,6 +27,9 @@ namespace _Game.Scripts.CharacterTurn
             Debug.Log("State Entered: Character Turn: Fire Select");
             Debug.Log("<color=#fdbb43>PRESS [Mouse1] Confirm Target; [Mouse2] Cancel</color>");
             
+            // Update the action panel
+            HUD.qt.SetApHeaderText("SELECT TARGET");
+            HUD.qt.ShowControls(true);
             
             isBlueTeam = _characterTurnFsm._soldier.Team == Soldier.team.Blue;
 
@@ -35,12 +38,12 @@ namespace _Game.Scripts.CharacterTurn
                 ? MapHandler.current.getRedTeamPos()
                 : MapHandler.current.getBlueTeamPos();
             
+            // make sure cache is clear
             _enemyTeamCache.Clear();
 
+            // get the nodes for each enemy location and add them to the cache
             foreach (var pos in enemyTeamPos)
-            {
                 _enemyTeamCache.Add(MapHandler.current.GetNodeAt((int)pos.x, (int)pos.y).Occupied);
-            }
         }
 
         struct ShotData
@@ -183,8 +186,12 @@ namespace _Game.Scripts.CharacterTurn
 
         public void Exit()
         {
+            // clear caches
             _enemyTeamCache.Clear();
             _hitCalculations.Clear();
+            
+            // hide controls
+            HUD.qt.ShowControls(false);
         }
     }
 }

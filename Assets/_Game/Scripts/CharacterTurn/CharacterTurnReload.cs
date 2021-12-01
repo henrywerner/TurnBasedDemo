@@ -14,6 +14,7 @@ namespace _Game.Scripts.CharacterTurn
         public void Enter()
         {
             Debug.Log("State Entered: Character Turn: Reload");
+            _characterTurnFsm._soldier.Reload();
         }
 
         public void Tick()

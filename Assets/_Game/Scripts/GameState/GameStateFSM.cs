@@ -33,6 +33,9 @@ public class GameStateFSM : StateMachine
 
     private void Start()
     {
+        foreach (var s in blueTeam) HUD.qt.BuildSoldierTab(s);
+        foreach (var s in redTeam) HUD.qt.BuildSoldierTab(s);
+
         ChangeState(MatchStart);
     }
 }

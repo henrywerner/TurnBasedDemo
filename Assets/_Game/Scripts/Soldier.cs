@@ -6,6 +6,7 @@ namespace _Game.Scripts
     public class Soldier : MonoBehaviour
     {
         [SerializeField] private Texture[] _poses;
+        public Sprite charPortrait = null;
         private Camera _cam;
         //[SerializeField] private GameObject parent;
         [SerializeField] private GameObject child;
@@ -54,8 +55,21 @@ namespace _Game.Scripts
         public void Damage()
         {
             CurrentHP--;
+            HUD.qt.UpdateSoldierHealth(this);
             
             // Check if soldier is dead
+        }
+
+        public void DepleteAmmo()
+        {
+            AmmoCount--;
+            HUD.qt.UpdateSoldierAmmo(this);
+        }
+
+        public void Reload()
+        {
+            AmmoCount = MaxAmmo;
+            HUD.qt.UpdateSoldierAmmo(this);
         }
 
         private void Start()

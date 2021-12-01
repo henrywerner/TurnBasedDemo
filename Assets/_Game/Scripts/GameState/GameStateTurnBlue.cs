@@ -49,6 +49,12 @@ public class GameStateTurnBlue : IState, ITeamTurn
     
     public void Enter()
     {
+        // reset actions remaining on the top bar
+        foreach (var s in soldiers)
+        {
+            HUD.qt.SetActionsRemaining(s, s.IsDead ? 0 : 2); // set to zero if dead
+        }
+        
         Debug.Log("State Entered: Turn Blue");
         characterTurnsRemaining = TEAM_SIZE; // reset remaining turns
         currentSoldier = TEAM_SIZE - 1;
