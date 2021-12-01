@@ -7,6 +7,9 @@ public class GameStateWinRed : IState
     {
         Debug.Log("State Entered: Win Red");
         Debug.Log("<color=#fdbb43>PRESS [R] Restart; [M] Main menu</color>");
+        
+        HUD.qt.SetApHeaderText("<color=#ec4b4c>RED TEAM WINS</color> \n<color=#fdbb43>PRESS [R] Restart; [M] Main menu</color>");
+        HUD.qt.SetApSubheaderText("");
     }
 
     public void Tick()

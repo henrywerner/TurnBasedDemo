@@ -16,17 +16,20 @@ namespace _Game.Scripts.CharacterTurn
         {
             Debug.Log("State Entered: Character Turn: Fire Action");
             
+            // add event to event feed
+            _characterTurnFsm._soldier.evtFeed.AddEvent("Firing");
+            
             // move the gunfire animator to the soldier's pos. This is mostly for debugging with raycasts.
-            GunFireAnimator.current.gameObject.transform.position = new Vector3(
+            EffectsManager.current.gameObject.transform.position = new Vector3(
                 _characterTurnFsm._soldier.gameObject.transform.position.x,
                 1.25f,
                 _characterTurnFsm._soldier.gameObject.transform.position.z);
             
             // play gunfire animation
-            GunFireAnimator.current.FireShots(_characterTurnFsm._queuedShots, 0.1f, _characterTurnFsm._soldier);
+            EffectsManager.current.FireShots(_characterTurnFsm._queuedShots, 0.1f, _characterTurnFsm._soldier);
 
             // force this non-monobehavior script to wait for a coroutine?
-            // while (GunFireAnimator.current.animationInProgress)
+            // while (EffectsManager.current.animationInProgress)
             // {
             //     // wait?
             // }

@@ -46,21 +46,32 @@ public class CharacterTurnFSM : StateMachine
      {
          ActionsRemaining = CHARACTER_ACTIONS;
          
-         // // if respawn timer is 0, then respawn soldier at start of turn
-         // if (_soldier.IsDead && _soldier.RespawnTimer <= 0)
-         // {
-         //     // respawn
-         // }
-         // else if (_soldier.IsDead)
-         // {
-         //     _soldier.RespawnTimer--;
-         //     // this should automatically use the player's turn up
-         //     return;
-         // }
+         /*
+         // if respawn timer is 0, then respawn soldier at start of turn
+         if (_soldier.IsDead && _soldier.RespawnTimer <= 0)
+         {
+             // respawn
+             _soldier.CurrentHP = _soldier.MaxHP;
+             HUD.qt.UpdateSoldierDead(_soldier);
+             HUD.qt.SetSoldierTurn(_soldier);
+             HUD.qt.SetActionsRemaining(_soldier, CHARACTER_ACTIONS);
+             ChangeState(ActionSelection);
+         }
+         */
          
-         HUD.qt.SetSoldierTurn(_soldier);
-         HUD.qt.SetActionsRemaining(_soldier, CHARACTER_ACTIONS);
+         if (_soldier.IsDead) // this should automatically use the player's turn up
+         {
+             _soldier.RespawnTimer--;
+             ActionsRemaining = 0;
+             HUD.qt.UpdateSoldierRespawnCounter(_soldier);
+             ChangeState(Limbo);
+         }
+         else
+         {
+             HUD.qt.SetSoldierTurn(_soldier);
+             HUD.qt.SetActionsRemaining(_soldier, CHARACTER_ACTIONS);
          
-         ChangeState(ActionSelection);
+             ChangeState(ActionSelection);
+         }
      }
  }

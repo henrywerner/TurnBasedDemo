@@ -83,16 +83,42 @@ namespace _Game.Scripts.CharacterTurn
                 RaycastHit h;
                 if (Physics.Raycast(gunPos, forwardVector, out h))
                 {
-                    raycastHits.Add(h);
+                    // Note: This raycast code is a mess and uses a ton of if-elses because I wrote it in 15 min
+                    
                     Soldier s = h.transform.GetComponent<Soldier>();
                     if (s != null)
                     {
-                        connectedShots.Add(h);
-                        // Debug.DrawRay(gunPos, forwardVector * 1000, Color.red, 2, true);
+                        if (s == _characterTurnFsm._soldier) // I just need people to stop shooting themselves. Please.
+                        {
+                            // I don't have time to make this better
+                            RaycastHit[] hits = Physics.RaycastAll(gunPos, forwardVector, 999);
+                            System.Array.Sort(hits, (x, y) => x.distance.CompareTo(y.distance)); // sort the array based on distance
+                            foreach (var rch in hits)
+                            {
+                                s = rch.transform.GetComponent<Soldier>();
+                                if (s != null)
+                                {
+                                    if (s == _characterTurnFsm._soldier) continue;
+                                    
+                                    connectedShots.Add(rch);
+                                    raycastHits.Add(rch);
+                                    break;
+                                }
+                                else
+                                    raycastHits.Add(rch);
+                            }
+                        }
+                        else
+                        {
+                            connectedShots.Add(h);
+                            raycastHits.Add(h);
+                            // Debug.DrawRay(gunPos, forwardVector * 1000, Color.red, 2, true);
+                        }
                     }
-                    // else
-                    //     Debug.DrawRay(gunPos, forwardVector * 1000, Color.yellow, 2, true);
-                        
+                    else
+                    {
+                        raycastHits.Add(h);
+                    }
                 }
             }
             Debug.Log("Shots Fired: " + raycastHits.Count);
@@ -189,6 +215,9 @@ namespace _Game.Scripts.CharacterTurn
             // clear caches
             _enemyTeamCache.Clear();
             _hitCalculations.Clear();
+            
+            // clear the selection indicator
+            SelectionIndicator.current.Highlight(false);
             
             // hide controls
             HUD.qt.ShowControls(false);

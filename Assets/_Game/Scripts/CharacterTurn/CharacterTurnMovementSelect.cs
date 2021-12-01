@@ -20,6 +20,10 @@ namespace _Game.Scripts.CharacterTurn
         {
             Debug.Log("State Entered: Character Turn: Movement Select");
             Debug.Log("<color=#fdbb43>PRESS [Mouse1] Confirm Movement; [Mouse2] Cancel</color>");
+            
+            // Update the action panel
+            HUD.qt.SetApHeaderText("SELECT LOCATION");
+            HUD.qt.ShowControls(true);
 
             Vector3 pos = _characterTurnFsm._soldier.transform.position;
             Debug.Log("Character Pos: " + (int)pos.x + ", " + (int)pos.z);
@@ -69,6 +73,9 @@ namespace _Game.Scripts.CharacterTurn
         public void Exit()
         {
             MapHandler.current.ClearHighlightedNodes();
+            
+            // hide controls
+            HUD.qt.ShowControls(false);
         }
     }
 }

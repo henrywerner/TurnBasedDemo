@@ -103,6 +103,18 @@ public class HUD : MonoBehaviour
         if (_currentTurn == s)
             dpAmmoClip.text = s.AmmoCount + "";
     }
+
+    public void UpdateSoldierDead(Soldier s)
+    {
+        if (_combatants.ContainsKey(s))
+            _combatants[s].SetDead(s.IsDead);
+    }
+
+    public void UpdateSoldierRespawnCounter(Soldier s)
+    {
+        if (_combatants.ContainsKey(s))
+            _combatants[s].UpdateRespawnCounter(s.RespawnTimer);
+    }
     
     // update soldier actions
     public void SetActionsRemaining(Soldier s, int a)
@@ -170,5 +182,10 @@ public class HUD : MonoBehaviour
     public void SetApHeaderText(string s)
     {
         apHeader.text = s;
+    }
+
+    public void SetApSubheaderText(string s)
+    {
+        apSubheader.text = s;
     }
 }

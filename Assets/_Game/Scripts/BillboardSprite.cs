@@ -24,5 +24,6 @@ public class BillboardSprite : MonoBehaviour
         */
         
         child.transform.forward = _cam.transform.forward;
+        //child.transform.LookAt(_cam.transform.position, transform.up);
     }
 }

@@ -45,7 +45,18 @@ public class GameStateTurnRed : IState, ITeamTurn
             _gameState.ChangeState(_gameState.WinBlue);
             return true;
         }
-        return false;
+        // return false;
+        
+        // TODO: Remove this if this project is continued after deadline
+        // Win game by killing the enemy team
+        foreach (var s in soldiers)
+        {
+            // return false if even one member is alive
+            if (!s.IsDead) return false;
+        }
+        _gameState.ChangeState(_gameState.WinBlue);
+        return true; // else return true;
+        
     }
     
     public void Enter()

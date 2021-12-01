@@ -12,11 +12,13 @@ namespace _Game.Scripts
         [SerializeField] private GameObject child;
         private Renderer _rend;
         [SerializeField] internal EventFeed evtFeed;
+        [SerializeField] private GameObject teamIndicator;
+        [SerializeField] private Material blueColor, redColor;
         
         public team Team;
         public int AmmoCount, MaxAmmo;
         public int CurrentHP, MaxHP;
-        public bool IsDead => CurrentHP <= 0;
+        public bool IsDead;
         public short RespawnTimer = 0;
 
         public int Movement = 5;
@@ -58,6 +60,21 @@ namespace _Game.Scripts
             HUD.qt.UpdateSoldierHealth(this);
             
             // Check if soldier is dead
+            IsDead = CurrentHP <= 0;
+
+            if (IsDead)
+            {
+                SetDead(IsDead);
+            }
+                
+        }
+
+        public void SetDead(bool dead)
+        {
+            IsDead = dead;
+            gameObject.GetComponent<BoxCollider>().enabled = !dead;
+            child.GetComponent<MeshRenderer>().enabled = !dead;
+            HUD.qt.UpdateSoldierDead(this);
         }
 
         public void DepleteAmmo()
@@ -70,12 +87,15 @@ namespace _Game.Scripts
         {
             AmmoCount = MaxAmmo;
             HUD.qt.UpdateSoldierAmmo(this);
+            EffectsManager.current.PlayReloadSound();
         }
 
         private void Start()
         {
             _cam = Camera.main;
             _rend = child.GetComponent<Renderer>();
+
+            teamIndicator.GetComponent<Renderer>().material = Team == team.Blue ? blueColor : redColor;
         }
 
         public void Update()

@@ -25,6 +25,7 @@ namespace _Game.Scripts.CharacterTurn
             
             // print to event feed?
             _characterTurnFsm._soldier.evtFeed.AddEvent("Moving");
+            EffectsManager.current.PlayMoveSound();
             
             // we have to reset the time vars everytime we enter
             _duration = 0.4f;
