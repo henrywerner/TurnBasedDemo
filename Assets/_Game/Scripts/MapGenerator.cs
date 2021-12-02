@@ -7,9 +7,17 @@ namespace _Game.Scripts
 {
     public class MapGenerator
     {
-        public Node[][] Generate(string filepath)
+        public Node[][] Generate(TextAsset data)
         {
-            string[] lines = System.IO.File.ReadAllLines(filepath);
+            //string[] lines = System.IO.File.ReadAllLines(filepath);
+            //TextAsset data = Resources.Load(filepath) as TextAsset;
+            if (data == null)
+            {
+                Debug.Log("ERROR: Map file not loaded.");
+                return null;
+            }
+            
+            string[] lines = data.text.Split('\n');
             string[][] nodeStr = new string[lines.Length][];
             Node[][] nodes = new Node[lines.Length][];
             //List<List<string>> nodess = new List<List<string>>();

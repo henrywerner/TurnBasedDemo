@@ -7,7 +7,8 @@ namespace _Game.Scripts
     public class MapHandler : MonoBehaviour
     {
         public static MapHandler current;
-        
+
+        [SerializeField] private TextAsset _mapFile;
         [SerializeField] private GameObject _tile;
         [SerializeField] private GameObject _halfCover, _fullCover;
         private const int North = 0, East = 1, South = 2, West = 3;
@@ -25,7 +26,7 @@ namespace _Game.Scripts
             current = this;
 
             MapGenerator generator = new MapGenerator();
-            currentMap = generator.Generate("Assets/_Game/Map/map1.txt");
+            currentMap = generator.Generate(_mapFile);
             BuildMap(currentMap);
         }
 
